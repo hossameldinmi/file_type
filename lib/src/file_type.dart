@@ -1,53 +1,58 @@
 import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
-
-import 'file_util.dart';
+import 'package:file_type/file_type.dart';
 
 class FileType extends Equatable {
-  final String _value;
-  const FileType._(this._value);
-  FileType._fromEnum(FileType value) : this._(value._value);
-  bool isAny(List<FileType> list) => list.map((e) => e._value).contains(_value);
+  final String value;
+  final Map<String, String> extensionMap;
+
+  FileType._(ExtensionGroupFilter groupFilter)
+      : value = groupFilter.name,
+        extensionMap = ExtensionsGrouping.categorizedExtensions[groupFilter.name]!;
+
+  bool isAny(List<FileType> list) => list.map((e) => e.value).contains(value);
   bool isAnyType(List<Type> list) => list.contains(runtimeType);
-  static const image = FileType._('image');
-  static const audio = FileType._('audio');
-  static const video = FileType._('video');
-  static const document = FileType._('doc');
-  static const url = FileType._('url');
-  static const other = FileType._('other');
 
-  factory FileType.fromPath(String path, String? mimeType) {
-    final uri = Uri.parse(path);
-    if (uri.path.contains('ism')) return FileType.video;
-    if (mimeType != null) return _getMediaType(mimeType);
-    mimeType = FileUtil.getMimeTypeFromPath(uri.path);
-    return _getMediaType(mimeType!);
-  }
+  static final image = FileType._(ExtensionGroupFilter.image);
+  static final audio = FileType._(ExtensionGroupFilter.audio);
+  static final video = FileType._(ExtensionGroupFilter.video);
+  static final document = FileType._(ExtensionGroupFilter.document);
+  static final html = FileType._(ExtensionGroupFilter.html);
+  static final archive = FileType._(ExtensionGroupFilter.archive);
+  static final other = FileType._(ExtensionGroupFilter.other);
 
-  factory FileType.fromBytes(Uint8List bytes, String? mimeType) {
-    if (mimeType != null) return _getMediaType(mimeType);
-    mimeType = FileUtil.getMimeTypeFromBytes(bytes);
-    return _getMediaType(mimeType!);
-  }
-
-  static FileType _getMediaType(String mime) {
-    late FileType mediaType;
-    if (mime.contains('image')) {
-      mediaType = FileType.image;
-    } else if (mime.contains('audio')) {
-      mediaType = FileType.audio;
-    } else if (mime.contains('video') || mime.contains('mpegurl')) {
-      // mpegurl is for m3u8
-      mediaType = FileType.video;
-    } else if (mime.contains('application/pdf')) {
-      mediaType = FileType.document;
-    } else {
-      mediaType = FileType.other;
+  /// Create a FileType from a file extension or MIME type using the extension maps.
+  factory FileType.fromExtensionOrMime({String? extension, String? mimeType}) {
+    extension = extension?.toLowerCase();
+    mimeType = mimeType?.toLowerCase();
+    if (extension != null || mimeType != null) {
+      for (var fileType in values) {
+        if (extension != null && fileType.extensionMap.containsKey(extension)) {
+          return fileType;
+        }
+        if (mimeType != null && fileType.extensionMap.containsValue(mimeType)) {
+          return fileType;
+        }
+      }
     }
-    return mediaType;
+    return other;
+  }
+  factory FileType.fromPath(String path, [String? mimeType]) {
+    final uri = Uri.parse(path);
+    if (mimeType != null) return FileType.fromExtensionOrMime(mimeType: mimeType);
+    mimeType = FileUtil.getMimeTypeFromPath(uri.path);
+    return FileType.fromExtensionOrMime(mimeType: mimeType);
+  }
+
+  factory FileType.fromBytes(Uint8List bytes, [String? mimeType]) {
+    if (mimeType != null) return FileType.fromExtensionOrMime(mimeType: mimeType);
+    mimeType = FileUtil.getMimeTypeFromBytes(bytes);
+    return FileType.fromExtensionOrMime(mimeType: mimeType);
   }
 
   @override
-  List<Object?> get props => [_value];
+  List<Object?> get props => [value];
+
+  static final values = [image, audio, video, document, html, archive, other];
 }

@@ -9,7 +9,6 @@
 /// [Internet media type](http://en.wikipedia.org/wiki/Internet_media_type).
 library;
 
-export 'src/extension.dart';
-export 'src/mime_multipart_transformer.dart';
-export 'src/mime_shared.dart';
-export 'src/mime_type.dart';
+export 'src/extension_grouping.dart';
+export 'src/file_type.dart';
+export 'src/file_util.dart';
