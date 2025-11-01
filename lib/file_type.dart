@@ -1,12 +1,16 @@
-// Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
-/// Help for working with file format identifiers
-/// such as `text/html` and `image/png`.
+/// A Flutter library that provides comprehensive state management solutions
+/// and utility functions for building scalable mobile applications.
 ///
-/// More details, including a list of types, are in the Wikipedia article
-/// [Internet media type](http://en.wikipedia.org/wiki/Internet_media_type).
+/// This library includes:
+/// - State management patterns and providers
+/// - Common utility functions and extensions
+/// - Widget helpers and custom components
+/// - Data models and serialization utilities
+///
+/// Example usage:
+/// ```dart
+/// import 'package:your_package_name/your_library_name.dart';
+/// ```
 library;
 
 export 'src/extension_grouping.dart';
