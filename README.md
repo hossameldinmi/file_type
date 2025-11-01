@@ -1,17 +1,43 @@
-# file-type
+<h2 align="center">
+  File Type Plus
+</h2>
 
-[![Test Coverage](https://github.com/hossameldinmi/file-type/actions/workflows/coverage.yml/badge.svg)](https://github.com/hossameldinmi/file-type/actions/workflows/coverage.yml)
+<p align="center">
+   <a href="https://github.com/hossameldinmi/file_type_plus/actions/workflows/dart.yml">
+    <img src="https://github.com/hossameldinmi/file_type_plus/actions/workflows/dart.yml/badge.svg?branch=main" alt="Github action">
+  </a>
+  <a href="https://codecov.io/github/hossameldinmi/file_type_plus">
+    <img src="https://codecov.io/github/hossameldinmi/file_type_plus/graph/badge.svg?token=JzTIIzoQOq" alt="Code Coverage">
+  </a>
+  <a href="https://pub.dev/packages/file_type_plus">
+    <img alt="Pub Package" src="https://img.shields.io/pub/v/file_type_plus">
+  </a>
+   <a href="https://pub.dev/packages/file_type_plus">
+    <img alt="Pub Points" src="https://img.shields.io/pub/points/file_type_plus">
+  </a>
+  <br/>
+  <a href="https://opensource.org/licenses/MIT">
+    <img alt="MIT License" src="https://img.shields.io/badge/License-MIT-blue.svg">
+  </a>
+</p>
 
-A Dart package that detects the file type from mime type, file extension, or file bytes.
+---
 
-## Features
+**File Type Plus** is a powerful and lightweight Dart package that intelligently detects and categorizes file types with multiple detection methods. Whether you're working with file paths, URLs, MIME types, or raw byte data, this package provides accurate file type classification for images, audio, video, documents, HTML files, archives, and more.
 
-- Detect file types from file extensions
-- Detect file types from MIME types
-- Detect file types from file bytes (magic numbers)
-- Detect file types from file paths
-- Support for multiple file categories: image, audio, video, document, html, archive, and other
-- 100% test coverage
+Perfect for file upload validation, content management systems, file browsers, media galleries, and any application that needs reliable file type detection. Built with 100% test coverage and full null safety support.
+
+## ✨ Features
+
+- 🎯 **Multiple Detection Methods** - Detect from file extensions, MIME types, file paths, URLs, or raw bytes
+- 🔍 **Magic Number Support** - Identify files by analyzing their byte signatures (magic numbers)
+- 📁 **7 File Categories** - Organized classification: image, audio, video, document, HTML, archive, and other
+- 🎬 **Streaming Video Support** - Special handling for ISM, HLS (.m3u8), and DASH formats
+- ⚡ **Fast & Lightweight** - Minimal dependencies with efficient detection algorithms
+- 🛡️ **Type Safe** - Full null safety and strong typing support
+- ✅ **100% Test Coverage** - Thoroughly tested with 81+ unit tests
+- 📦 **Easy Integration** - Simple API with comprehensive examples
+- 🌐 **URL & Path Support** - Works with local paths, network URLs, and various path formats
 
 ## Installation
 
